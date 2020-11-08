@@ -11,23 +11,13 @@ class HuffmanTreeNode {
 
 		HuffmanTreeNode(char, int);
 
-		int getValue();
-		void addLeft(char, int);
-		void addRight(char, int);
+		void setLeft(std::shared_ptr<HuffmanTreeNode>);
+		void setRight(std::shared_ptr<HuffmanTreeNode>);
 		std::shared_ptr<HuffmanTreeNode> getLeft();
 		std::shared_ptr<HuffmanTreeNode> getRight();
 };
 
 class NodeComparison {
 	public:
-		bool operator() (const HuffmanTreeNode&, const HuffmanTreeNode&);
-};
-
-class HuffmanTree {
-	private:
-		HuffmanTreeNode* root;
-
-	public:
-		void setRoot(HuffmanTreeNode&);
-		HuffmanTreeNode* getRoot();
+		bool operator() (const std::shared_ptr<const HuffmanTreeNode>, const std::shared_ptr<const HuffmanTreeNode>);
 };

@@ -1,9 +1,9 @@
 #include "huffmantree.h"
 #include <memory>
 
+// ********************************
 // HuffmanTreeNode implementation
-//
-
+// ********************************
 HuffmanTreeNode::HuffmanTreeNode(char c, int freq) {
 	character = c;
 	frequency = freq;
@@ -11,21 +11,11 @@ HuffmanTreeNode::HuffmanTreeNode(char c, int freq) {
 	right = nullptr;
 }
 
-int HuffmanTreeNode::getValue() {
-	if (left == nullptr && right == nullptr) {
-		return frequency;
-	}
-
-	return left->getValue() + right->getValue();
-}
-
-void HuffmanTreeNode::addLeft(char c, int freq) {
-	auto node = std::make_shared<HuffmanTreeNode>(c, freq);
+void HuffmanTreeNode::setLeft(std::shared_ptr<HuffmanTreeNode> node) {
 	left = node;
 }
 
-void HuffmanTreeNode::addRight(char c, int freq) {
-	auto node = std::make_shared<HuffmanTreeNode>(c, freq);
+void HuffmanTreeNode::setRight(std::shared_ptr<HuffmanTreeNode> node) {
 	right = node;
 }
 
@@ -37,17 +27,10 @@ std::shared_ptr<HuffmanTreeNode> HuffmanTreeNode::getRight() {
 	return right;
 }
 
+// ********************************
 // NodeComparison implementation
-bool NodeComparison::operator()(const HuffmanTreeNode& node1, const HuffmanTreeNode& node2) {
-	return node1.frequency > node2.frequency;
-}
-
-// HuffmanTree implementation
-
-void HuffmanTree::setRoot(HuffmanTreeNode& node) {
-	root = &node;
-}
-
-HuffmanTreeNode* HuffmanTree::getRoot() {
-	return root;
+// ********************************
+bool NodeComparison::operator()(const std::shared_ptr<const HuffmanTreeNode> node1, 
+								const std::shared_ptr<const HuffmanTreeNode> node2) {
+	return node1->frequency > node2->frequency;
 }

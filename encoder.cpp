@@ -20,6 +20,7 @@ void Encoder::createFrequencyTable() {
 			umap.insert(make_pair(c, frequency));
 			continue;
 		}
+		// increment frequency
 		(got->second)++;
 	}
 
@@ -27,12 +28,12 @@ void Encoder::createFrequencyTable() {
 }
 
 void Encoder::createMinQueue() {
-	typedef priority_queue<HuffmanTreeNode, vector<HuffmanTreeNode>, NodeComparison> min_heap;
+	typedef priority_queue<HuffmanTreeNode, vector<shared_ptr<HuffmanTreeNode>>, NodeComparison> min_heap;
 	min_heap minHeap;
 
 	// add frequency table elements to min queue
 	for (auto x : freqTable) {
-		HuffmanTreeNode node(x.first, x.second);
+		auto node = std::make_shared<HuffmanTreeNode>(x.first, x.second);
 		minHeap.push(node);
 	}
 
@@ -45,7 +46,12 @@ void Encoder::createHuffmanTree() {
 		pq.pop();
 		auto min2 = pq.top();
 		pq.pop();
-		//HuffmanTreeNode node;
-		//node.addLeft;
+
+		auto internalNode = std::make_shared<HuffmanTreeNode>('\0', min1->frequency + min2->frequency);
+
+		internalNode->setLeft(min1);
+		internalNode->setRight(min2);
+
+		pq.push(internalNode);
 	}
 }
