@@ -8,6 +8,11 @@
 using namespace std;
 
 class Encoder {
+	private:
+		void createFrequencyTable();
+		void createMinQueue();
+		void createHuffmanTree();
+
 	public:
 		string str;
 		unordered_map<char, int> freqTable;
@@ -15,8 +20,7 @@ class Encoder {
 
 		Encoder(const string&);
 
-		void createFrequencyTable();
-		void createMinQueue();
-		void createHuffmanTree();
+		void encode();
+
 };
 

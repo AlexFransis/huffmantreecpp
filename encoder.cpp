@@ -55,3 +55,9 @@ void Encoder::createHuffmanTree() {
 		pq.push(internalNode);
 	}
 }
+
+void Encoder::encode() {
+	createFrequencyTable();
+	createMinQueue();
+	createHuffmanTree();
+}
