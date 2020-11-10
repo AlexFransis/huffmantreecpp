@@ -10,26 +10,26 @@ HuffmanTreeNode::HuffmanTreeNode(char c, int freq) {
 	right = nullptr;
 }
 
-void HuffmanTreeNode::setLeft(const std::shared_ptr<const HuffmanTreeNode>& node) {
+void HuffmanTreeNode::setLeft(const std::unique_ptr<const HuffmanTreeNode>& node) {
 	left = node;
 }
 
-void HuffmanTreeNode::setRight(const std::shared_ptr<const HuffmanTreeNode>& node) {
+void HuffmanTreeNode::setRight(const std::unique_ptr<const HuffmanTreeNode>& node) {
 	right = node;
 }
 
-const std::shared_ptr<const HuffmanTreeNode> HuffmanTreeNode::getLeft() const {
+const std::unique_ptr<const HuffmanTreeNode> HuffmanTreeNode::getLeft() const {
 	return left;
 }
 
-const std::shared_ptr<const HuffmanTreeNode> HuffmanTreeNode::getRight() const {
+const std::unique_ptr<const HuffmanTreeNode> HuffmanTreeNode::getRight() const {
 	return right;
 }
 
 // ********************************
 // NodeComparison implementation
 // ********************************
-bool NodeComparison::operator()(const std::shared_ptr<const HuffmanTreeNode>& node1,
-								const std::shared_ptr<const HuffmanTreeNode>& node2) {
+bool NodeComparison::operator()(const std::unique_ptr<const HuffmanTreeNode>& node1,
+								const std::unique_ptr<const HuffmanTreeNode>& node2) {
 	return node1->frequency > node2->frequency;
 }

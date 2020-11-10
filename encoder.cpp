@@ -28,13 +28,12 @@ void Encoder::createFrequencyTable() {
 }
 
 void Encoder::createMinQueue() {
-	typedef priority_queue<HuffmanTreeNode, vector<shared_ptr<HuffmanTreeNode>>, NodeComparison> min_heap;
+	typedef priority_queue<std::unique_ptr<HuffmanTreeNode>, vector<unique_ptr<HuffmanTreeNode>>, NodeComparison> min_heap;
 	min_heap minHeap;
 
 	// add frequency table elements to min queue
 	for (auto x : freqTable) {
-		auto node = std::make_shared<HuffmanTreeNode>(x.first, x.second);
-		minHeap.push(node);
+		minHeap.push(std::make_unique<HuffmanTreeNode>(x.first, x.second));
 	}
 
 	pq = minHeap;
@@ -42,15 +41,15 @@ void Encoder::createMinQueue() {
 
 void Encoder::createHuffmanTree() {
 	while (pq.size() != 1) {
-		auto min1 = pq.top();
+		const auto& min1 = pq.top();
 		pq.pop();
-		auto min2 = pq.top();
+		const auto& min2 = pq.top();
 		pq.pop();
 
-		auto internalNode = std::make_shared<HuffmanTreeNode>('\0', min1->frequency + min2->frequency);
+		auto internalNode = std::make_unique<HuffmanTreeNode>('\0', min1->frequency + min2->frequency);
 
-		internalNode->setLeft(min1);
-		internalNode->setRight(min2);
+		internalNode->setLeft(std::move(min1));
+		internalNode->setRight(std::move(min2));
 
 		pq.push(internalNode);
 	}

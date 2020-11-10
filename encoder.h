@@ -16,7 +16,7 @@ class Encoder {
 	public:
 		string str;
 		unordered_map<char, int> freqTable;
-		priority_queue<HuffmanTreeNode, vector<std::shared_ptr<HuffmanTreeNode>>, NodeComparison> pq;
+		priority_queue<std::unique_ptr<HuffmanTreeNode>, vector<std::unique_ptr<HuffmanTreeNode>>, NodeComparison> pq;
 
 		Encoder(const string&);
 

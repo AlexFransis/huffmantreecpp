@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void printTree(const std::shared_ptr<const HuffmanTreeNode>& node) {
+void printTree(const std::unique_ptr<const HuffmanTreeNode>& node) {
 	if (node != nullptr) {
 		cout << "KEY: " << node->character << " VALUE: " << node->frequency << "\n";
 		printTree(node->getLeft());
