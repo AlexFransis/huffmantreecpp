@@ -15,6 +15,7 @@ class Encoder {
 
 	public:
 		char const* byteArr;
+		std::vector<int> encodedStream;
 		std::unordered_map<char, int> freqTable;
 		std::priority_queue<HuffmanTreeNode, std::vector<std::shared_ptr<HuffmanTreeNode>>, NodeComparison> pq;
 		std::unordered_map<char, std::vector<int>> huffmanCodes;

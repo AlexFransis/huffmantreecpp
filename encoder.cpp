@@ -2,6 +2,7 @@
 #include <vector>
 #include <unordered_map>
 #include <queue>
+#include <math.h>
 #include "encoder.h"
 
 // Helper function to create huffman codes
@@ -82,7 +83,38 @@ void Encoder::createHuffmanCodes() {
 	huffmanCodes = umap;
 }
 
+/*
+int getTotalCompressedSize() {
+	int totalBitSize = 0;
+	for (auto& x: freqTable) {
+		char key = x.first;
+		int frequency = x.second;
+		auto got = huffmanCodes.find(key);
+		if (got != huffmanCodes.end()) {
+			int codeLength = got->second->size();
+			totalBitSize += codeLength * frequency;
+		}
+	}
+
+	float bytes = totalBitSize / 8.0;
+
+	return int(ceil(bytes));
+}
+*/
+
 void Encoder::createEncodedStream() {
+	std::vector<int> stream;
+	for (int i = 0; *(byteArr + i) != '\0'; i++) {
+		char key = *(byteArr + i);
+		auto got = huffmanCodes.find(key);
+		if (got != huffmanCodes.end()) {
+			for (auto it = got->second.begin(); it != got->second.end(); it++) {
+				stream.push_back(*it);
+			}
+		}
+	}
+
+	encodedStream = stream;
 }
 
 void Encoder::encode() {
@@ -90,5 +122,6 @@ void Encoder::encode() {
 	createMinQueue();
 	createHuffmanTree();
 	createHuffmanCodes();
+	createEncodedStream();
 }
 

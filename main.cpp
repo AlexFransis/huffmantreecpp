@@ -19,14 +19,20 @@ int main() {
 	Encoder encoder(str);
 	encoder.encode();
 
-
+	/*
 	for (auto& x: encoder.huffmanCodes) {
-		std::cout << "KEY: " << std::hex << int(x.first) << " CODE: ";
+		std::cout << "KEY: " << std::hex << x.first << " CODE: ";
 		for (auto iterator = x.second.begin(); iterator != x.second.end(); iterator++) {
 			std::cout << *iterator;
 		}
 		std::cout << "\n";
 	}
+	*/
+
+	for (auto& x: encoder.encodedStream) {
+			std::cout << x;
+	}
+	std::cout << '\n';
 
 	return 0;
 }
