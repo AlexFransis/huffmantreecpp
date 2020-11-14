@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include <iomanip>
+#include <bitset>
 #include "encoder.h"
 
 void printTree(const std::shared_ptr<const HuffmanTreeNode>& node) {
@@ -29,10 +30,17 @@ int main() {
 	}
 	*/
 
+	for (auto& x: encoder.compressed) {
+			std::cout << std::bitset<16>(x);
+	}
+
+	/*
 	for (auto& x: encoder.encodedStream) {
 			std::cout << x;
 	}
+	*/
 	std::cout << '\n';
+
 
 	return 0;
 }
