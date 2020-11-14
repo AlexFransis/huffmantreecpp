@@ -7,24 +7,24 @@
 
 class Encoder {
 	private:
-		void createFrequencyTable();
-		void createMinQueue();
-		void createHuffmanTree();
-		void createHuffmanCodes();
-		void createEncodedStream();
-		void compressEncodedStream();
-		int getTotalCompressedSize();
+		void CreateFrequencyTable();
+		void CreateMinQueue();
+		void CreateHuffmanTree();
+		void CreateHuffmanCodes();
+		void CreateEncodedStream();
+		void CompressEncodedStream();
+		int GetTotalCompressedSize();
 
 	public:
-		char const* byteArr;
-		std::vector<unsigned char> compressed;
-		std::vector<int> encodedStream;
-		std::unordered_map<char, int> freqTable;
+		char const* byte_arr;
+		std::vector<uint8_t> compressed;
+		std::vector<uint8_t> encoded_stream;
+		std::unordered_map<char, int> freq_table;
 		std::priority_queue<HuffmanTreeNode, std::vector<std::shared_ptr<HuffmanTreeNode>>, NodeComparison> pq;
-		std::unordered_map<char, std::vector<int>> huffmanCodes;
+		std::unordered_map<char, std::vector<uint8_t>> huffman_codes;
 
 		Encoder(const std::string&);
 
-		void encode();
+		void Encode();
 };
 

@@ -13,8 +13,8 @@ class HuffmanTreeNode {
 
 		void setLeft(const std::shared_ptr<const HuffmanTreeNode>&);
 		void setRight(const std::shared_ptr<const HuffmanTreeNode>&);
-		const std::shared_ptr<const HuffmanTreeNode> getLeft() const;
-		const std::shared_ptr<const HuffmanTreeNode> getRight() const;
+		const std::shared_ptr<const HuffmanTreeNode> GetLeft() const;
+		const std::shared_ptr<const HuffmanTreeNode> GetRight() const;
 };
 
 class NodeComparison {

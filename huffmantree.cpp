@@ -18,11 +18,11 @@ void HuffmanTreeNode::setRight(const std::shared_ptr<const HuffmanTreeNode>& nod
 	right = node;
 }
 
-const std::shared_ptr<const HuffmanTreeNode> HuffmanTreeNode::getLeft() const {
+const std::shared_ptr<const HuffmanTreeNode> HuffmanTreeNode::GetLeft() const {
 	return left;
 }
 
-const std::shared_ptr<const HuffmanTreeNode> HuffmanTreeNode::getRight() const {
+const std::shared_ptr<const HuffmanTreeNode> HuffmanTreeNode::GetRight() const {
 	return right;
 }
 
