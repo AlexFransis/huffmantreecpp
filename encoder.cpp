@@ -4,20 +4,38 @@
 #include <queue>
 #include "encoder.h"
 
-using namespace std;
+// Helper function to create huffman codes
+void traverseHuffmanTree(const std::shared_ptr<const HuffmanTreeNode>& node,
+						std::vector<int>& accumulator,
+						std::unordered_map<char, std::vector<int>>& umap) {
+	if (node->getLeft() == nullptr && node->getRight() == nullptr) {
+		std::vector<int> code(accumulator.begin(), accumulator.end());
+		umap.insert(std::make_pair(node->character, code));
+		accumulator.pop_back();
+		return;
+	}
 
-Encoder::Encoder(const string& s) {
-	str = s;
+	accumulator.push_back(0);
+	traverseHuffmanTree(node->getLeft(), accumulator, umap);
+
+	accumulator.push_back(1);
+	traverseHuffmanTree(node->getRight(), accumulator, umap);
+	accumulator.pop_back();
+}
+
+Encoder::Encoder(const std::string& s) {
+	const char* buffer = s.c_str();
+	byteArr = buffer;
 }
 
 void Encoder::createFrequencyTable() {
-	unordered_map<char, int> umap;
-	for (int i = 0; i < str.length(); i++) {
-		char c = str[i];
+	std::unordered_map<char, int> umap;
+	for (int i = 0; *(byteArr + i) != '\0'; i++) {
+		unsigned char c = *(byteArr + i);
 		auto got = umap.find(c);
 		int frequency = 1;
 		if (got == umap.end()) {
-			umap.insert(make_pair(c, frequency));
+			umap.insert(std::make_pair(c, frequency));
 			continue;
 		}
 		// increment frequency
@@ -28,7 +46,7 @@ void Encoder::createFrequencyTable() {
 }
 
 void Encoder::createMinQueue() {
-	typedef priority_queue<HuffmanTreeNode, vector<shared_ptr<HuffmanTreeNode>>, NodeComparison> min_heap;
+	typedef std::priority_queue<HuffmanTreeNode, std::vector<std::shared_ptr<HuffmanTreeNode>>, NodeComparison> min_heap;
 	min_heap minHeap;
 
 	// add frequency table elements to min queue
@@ -56,8 +74,21 @@ void Encoder::createHuffmanTree() {
 	}
 }
 
+void Encoder::createHuffmanCodes() {
+	auto root = pq.top();
+	std::vector<int> acc;
+	std::unordered_map<char, std::vector<int>> umap;
+	traverseHuffmanTree(root, acc, umap);
+	huffmanCodes = umap;
+}
+
+void Encoder::createEncodedStream() {
+}
+
 void Encoder::encode() {
 	createFrequencyTable();
 	createMinQueue();
 	createHuffmanTree();
+	createHuffmanCodes();
 }
+

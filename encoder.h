@@ -5,22 +5,22 @@
 #include <memory>
 #include "huffmantree.h"
 
-using namespace std;
-
 class Encoder {
 	private:
 		void createFrequencyTable();
 		void createMinQueue();
 		void createHuffmanTree();
+		void createHuffmanCodes();
+		void createEncodedStream();
 
 	public:
-		string str;
-		unordered_map<char, int> freqTable;
-		priority_queue<HuffmanTreeNode, vector<std::shared_ptr<HuffmanTreeNode>>, NodeComparison> pq;
+		char const* byteArr;
+		std::unordered_map<char, int> freqTable;
+		std::priority_queue<HuffmanTreeNode, std::vector<std::shared_ptr<HuffmanTreeNode>>, NodeComparison> pq;
+		std::unordered_map<char, std::vector<int>> huffmanCodes;
 
-		Encoder(const string&);
+		Encoder(const std::string&);
 
 		void encode();
-
 };
 

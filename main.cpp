@@ -2,28 +2,31 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <iomanip>
 #include "encoder.h"
-
-using namespace std;
 
 void printTree(const std::shared_ptr<const HuffmanTreeNode>& node) {
 	if (node != nullptr) {
-		cout << "KEY: " << node->character << " VALUE: " << node->frequency << "\n";
+		std::cout << "KEY: " << node->character << " VALUE: " << node->frequency << "\n";
 		printTree(node->getLeft());
 		printTree(node->getRight());
 	}
 }
 
 int main() {
-	const string str = "I AM SAM. I AM SAM. SAM I AM.\nTHAT SAM-I-AM! THAT SAM-I-AM! I DO NOT LIKE THAT SAM-I-AM!";
+	const std::string str = "I AM SAM. I AM SAM. SAM I AM.\nTHAT SAM-I-AM! THAT SAM-I-AM! I DO NOT LIKE THAT SAM-I-AM!";
 
-	Encoder encoder (str);
+	Encoder encoder(str);
 	encoder.encode();
 
 
-	cout << "SIZE: " << encoder.pq.size() << '\n';
-	auto x = encoder.pq.top();
-	printTree(x);
+	for (auto& x: encoder.huffmanCodes) {
+		std::cout << "KEY: " << std::hex << int(x.first) << " CODE: ";
+		for (auto iterator = x.second.begin(); iterator != x.second.end(); iterator++) {
+			std::cout << *iterator;
+		}
+		std::cout << "\n";
+	}
 
 	return 0;
 }
