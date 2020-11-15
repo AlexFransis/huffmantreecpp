@@ -117,10 +117,10 @@ int Encoder::GetTotalCompressedSize() {
 
 void Encoder::CompressEncodedStream() {
 	const int bufferSize = GetTotalCompressedSize();
-	std::vector<uint8_t> buffer(bufferSize);
+	std::vector<uint8_t> buffer;
 	uint8_t byte = 0x00;
 	for (int i = 0; i < encoded_stream.size(); i++) {
-		int bit = encoded_stream[i];
+		bool bit = encoded_stream[i];
 		byte = (byte << 1) | bit;
 		if ((i + 1) % 8 == 0) {
 			buffer.push_back(byte);
