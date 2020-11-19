@@ -26,5 +26,6 @@ class Encoder {
 		Encoder(const std::string&);
 
 		void Encode();
+		std::string Decode(const std::vector<uint8_t>&);
 };
 

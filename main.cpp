@@ -14,7 +14,7 @@ void PrintTree(const std::shared_ptr<const HuffmanTreeNode>& node) {
 	}
 }
 
-void PrintCodes(const std::unordered_map<char, std::vector<uint8_t>> umap) { 
+void PrintCodes(const std::unordered_map<char, std::vector<uint8_t>>& umap) { 
 	std::cout << "#### HUFFMAN CODES ####" << '\n';
 	for (auto& x : umap) {
 		std::cout << "KEY: " << x.first << " CODES: ";
@@ -33,6 +33,14 @@ void PrintEncodedStream(const std::vector<uint8_t>& stream) {
 	std::cout << '\n';
 }
 
+void PrintCompressed(const std::vector<uint8_t>& compressed) {
+	std::cout << "#### COMPRESSED STREAM ####" << '\n';
+	for (auto& x : compressed) {
+		std::cout << std::bitset<0x08>(x);
+	}
+	std::cout << '\n';
+}
+
 int main() {
 	const std::string str = "I AM SAM. I AM SAM. SAM I AM.\nTHAT SAM-I-AM! THAT SAM-I-AM! I DO NOT LIKE THAT SAM-I-AM!";
 
@@ -41,9 +49,9 @@ int main() {
 
 	//PrintTree(encoder.pq.top());
 	//PrintCodes(encoder.huffman_codes);
-	std::cout << str << '\n';
+	//std::cout << str << '\n';
 	PrintEncodedStream(encoder.encoded_stream);
-	std::cout << "SIZE : " << encoder.compressed.size() << " BYTES";
+	PrintCompressed(encoder.compressed);
 
 	std::cout << '\n';
 

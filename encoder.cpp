@@ -141,3 +141,15 @@ void Encoder::Encode() {
 	CompressEncodedStream();
 }
 
+std::string Encoder::Decode(const std::vector<uint8_t>& byte_arr) {
+	/*
+	std::vector<const char> character_buffer;
+	for (auto& byte: byte_arr) {
+		std::bitset<0x08> bits(byte);
+		for (int i = 0; i < bits.size(); i++) {
+		}
+	}
+	*/
+
+	return std::string();
+}
