@@ -116,10 +116,11 @@ int Encoder::GetTotalCompressedSize() {
 }
 
 void Encoder::CompressEncodedStream() {
-	const int bufferSize = GetTotalCompressedSize();
+	const int compressed_size = GetTotalCompressedSize(); // bytes
 	std::vector<uint8_t> buffer;
 	uint8_t byte = 0x00;
-	for (int i = 0; i < encoded_stream.size(); i++) {
+	int i = 0;
+	for (; i < encoded_stream.size(); i++) {
 		bool bit = encoded_stream[i];
 		byte = (byte << 1) | bit;
 		if ((i + 1) % 8 == 0) {
@@ -127,7 +128,8 @@ void Encoder::CompressEncodedStream() {
 			byte = 0x00;
 		}
 	}
-
+	// shift last byte to make sure it is not prepended with 0s
+	byte = byte << (compressed_size * 8 - i);
 	buffer.push_back(byte);
 	compressed = buffer;
 }
@@ -139,17 +141,31 @@ void Encoder::Encode() {
 	CreateHuffmanCodes();
 	CreateEncodedStream();
 	CompressEncodedStream();
+	std::cout << "#### ENCODING COMPLETE ####\n";
 }
 
-std::string Encoder::Decode(const std::vector<uint8_t>& byte_arr) {
-	/*
-	std::vector<const char> character_buffer;
-	for (auto& byte: byte_arr) {
+std::string Encoder::Decode() {
+	std::vector<char> character_buffer;
+	auto root = pq.top();
+	std::shared_ptr<HuffmanTreeNode>* current_node = &root;
+	for (auto& byte: compressed) {
 		std::bitset<0x08> bits(byte);
-		for (int i = 0; i < bits.size(); i++) {
+		for (auto& b: bits.to_string()) {
+			bool bit = false;
+			if (b == '1') {
+				bit = true;
+			}
+			auto child = (*current_node)->GetChild(bit);
+			// internal node, continue traversing tree
+			if (child->character == '\0') {
+				current_node = &child;
+				continue;
+			}
+			// leaf node, get character
+			character_buffer.push_back(child->character);
+			current_node = &root;
 		}
 	}
-	*/
 
-	return std::string();
+	return std::string(character_buffer.begin(), character_buffer.end());
 }

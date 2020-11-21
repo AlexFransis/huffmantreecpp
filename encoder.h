@@ -3,10 +3,14 @@
 #include <vector>
 #include <queue>
 #include <memory>
+#include <iostream>
+#include <bitset>
 #include "huffmantree.h"
 
 class Encoder {
 	private:
+		char const* byte_arr;
+
 		void CreateFrequencyTable();
 		void CreateMinQueue();
 		void CreateHuffmanTree();
@@ -16,7 +20,6 @@ class Encoder {
 		int GetTotalCompressedSize();
 
 	public:
-		char const* byte_arr;
 		std::vector<uint8_t> compressed;
 		std::vector<uint8_t> encoded_stream;
 		std::unordered_map<char, int> freq_table;
@@ -26,6 +29,5 @@ class Encoder {
 		Encoder(const std::string&);
 
 		void Encode();
-		std::string Decode(const std::vector<uint8_t>&);
+		std::string Decode();
 };
-

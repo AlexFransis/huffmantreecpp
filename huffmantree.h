@@ -2,8 +2,8 @@
 
 class HuffmanTreeNode {
 	private:
-		std::shared_ptr<const HuffmanTreeNode> left;
-		std::shared_ptr<const HuffmanTreeNode> right;
+		std::shared_ptr<HuffmanTreeNode> left;
+		std::shared_ptr<HuffmanTreeNode> right;
 
 	public:
 		char character;
@@ -11,13 +11,15 @@ class HuffmanTreeNode {
 
 		HuffmanTreeNode(char, int);
 
-		void setLeft(const std::shared_ptr<const HuffmanTreeNode>&);
-		void setRight(const std::shared_ptr<const HuffmanTreeNode>&);
-		const std::shared_ptr<const HuffmanTreeNode> GetLeft() const;
-		const std::shared_ptr<const HuffmanTreeNode> GetRight() const;
+
+		void setLeft(const std::shared_ptr<HuffmanTreeNode>&);
+		void setRight(const std::shared_ptr<HuffmanTreeNode>&);
+		const std::shared_ptr<HuffmanTreeNode> GetLeft() const;
+		const std::shared_ptr<HuffmanTreeNode> GetRight() const;
+		const std::shared_ptr<HuffmanTreeNode> GetChild(bool) const;
 };
 
 class NodeComparison {
 	public:
-		bool operator() (const std::shared_ptr<const HuffmanTreeNode>&, const std::shared_ptr<const HuffmanTreeNode>&);
+		bool operator() (const std::shared_ptr<HuffmanTreeNode>&, const std::shared_ptr<HuffmanTreeNode>&);
 };

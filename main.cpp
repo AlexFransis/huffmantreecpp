@@ -36,23 +36,26 @@ void PrintEncodedStream(const std::vector<uint8_t>& stream) {
 void PrintCompressed(const std::vector<uint8_t>& compressed) {
 	std::cout << "#### COMPRESSED STREAM ####" << '\n';
 	for (auto& x : compressed) {
-		std::cout << std::bitset<0x08>(x);
+		auto bits = std::bitset<0x08>(x);
+		std::cout << bits;
 	}
 	std::cout << '\n';
 }
 
 int main() {
 	const std::string str = "I AM SAM. I AM SAM. SAM I AM.\nTHAT SAM-I-AM! THAT SAM-I-AM! I DO NOT LIKE THAT SAM-I-AM!";
+	std::cout << "#### ORIGINAL TEXT ####\n";
+	std::cout << str << '\n';
 
 	Encoder encoder(str);
 	encoder.Encode();
-
-	//PrintTree(encoder.pq.top());
-	//PrintCodes(encoder.huffman_codes);
-	//std::cout << str << '\n';
-	PrintEncodedStream(encoder.encoded_stream);
 	PrintCompressed(encoder.compressed);
-
+	std::cout << '\n';
+	PrintCodes(encoder.huffman_codes);
+	std::cout << '\n';
+	auto decoded = encoder.Decode();
+	std::cout << "#### DECODED STREAM ####\n";
+	std::cout << decoded;
 	std::cout << '\n';
 
 
